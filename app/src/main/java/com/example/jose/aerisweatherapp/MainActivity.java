@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.example.jose.aerisweatherapp.backend.AerisService;
 import com.example.jose.aerisweatherapp.controller.AerisAdapter;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private AerisAdapter adapter;
     private List<AerisPeriod> listOfForecasts;
+    private ImageView icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +64,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(RESPONSE_TAG,t.getMessage());
             }
         });
-
-
-
-
     }
 }

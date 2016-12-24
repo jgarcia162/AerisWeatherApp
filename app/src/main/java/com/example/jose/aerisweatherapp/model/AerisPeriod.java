@@ -9,6 +9,7 @@ public class AerisPeriod {
     private int minTempC;
     private int minTempF;
     private String dateTimeISO;
+    private String icon;
 
     public int getMaxTempC() {
         return maxTempC;
@@ -22,7 +23,7 @@ public class AerisPeriod {
         return minTempC;
     }
 
-    public double getMinTempF() {
+    public int getMinTempF() {
         return minTempF;
     }
 
@@ -30,5 +31,7 @@ public class AerisPeriod {
         return dateTimeISO;
     }
 
-
+    public String getIcon() {
+        return icon;
+    }
 }
