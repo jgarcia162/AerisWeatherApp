@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="150dp"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp">
 
     <TextView
@@ -10,20 +11,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="MON"/>
     <ImageView
         android:id="@+id/icon_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/time_stamp_tv"/>
+        android:layout_below="@id/time_stamp_tv"
+        tools:src="@drawable/sunny"/>
     <TextView
         android:id="@+id/min_temp_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/icon_iv"
         android:layout_marginTop="20dp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="30"/>
     <TextView
         android:id="@+id/max_temp_tv"
         android:layout_width="match_parent"
@@ -31,6 +37,8 @@
         android:layout_below="@id/min_temp_tv"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="50"/>
 
 </RelativeLayout>

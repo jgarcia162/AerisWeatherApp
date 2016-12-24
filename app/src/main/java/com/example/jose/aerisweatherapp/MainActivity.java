@@ -22,6 +22,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    //TODO create detailed view fragment
+    //TODO add toggle for celsius
 
     private String ACCESS_ID = BuildConfig.AERIS_API_ACCESS_ID;
     private String AERIS_CLIENT_SECRET = BuildConfig.AERIS_API_SECRET_KEY;

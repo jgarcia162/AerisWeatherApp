@@ -11,6 +11,10 @@ import android.widget.TextView;
 import com.example.jose.aerisweatherapp.R;
 import com.example.jose.aerisweatherapp.model.AerisPeriod;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AerisViewHolder extends RecyclerView.ViewHolder {
     private TextView timeStampTV;
     private TextView minTempTV;
@@ -29,10 +33,22 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(AerisPeriod period){
-        timeStampTV.setText(period.getDateTimeISO());
+        timeStampTV.setText(parseDayOfTheWeek(period));
         minTempTV.setText(String.valueOf(period.getMinTempF()));
         maxTempTV.setText(String.valueOf(period.getMaxTempF()));
         weatherIconIV.setImageDrawable(getIcon(period));
+    }
+
+    private String parseDayOfTheWeek(AerisPeriod period) {
+        String dayOfTheWeek="";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-HH:mm");
+        try {
+            Date date = simpleDateFormat.parse(period.getDateTimeISO()); //2016-12-23T07:00:00-05:00
+            dayOfTheWeek = new SimpleDateFormat("EE").format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dayOfTheWeek;
     }
 
     private Drawable getIcon(AerisPeriod period){
