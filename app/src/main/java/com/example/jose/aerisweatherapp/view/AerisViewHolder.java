@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,7 +45,8 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-HH:mm");
         try {
             Date date = simpleDateFormat.parse(period.getDateTimeISO()); //2016-12-23T07:00:00-05:00
-            dayOfTheWeek = new SimpleDateFormat("EE").format(date);
+            dayOfTheWeek = new SimpleDateFormat("E").format(date);
+            Log.d("DAY OF THE WEEK",dayOfTheWeek);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -60,4 +62,5 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         drawable = resources.getDrawable(imageResource,null);
         return drawable;
     }
+
 }
