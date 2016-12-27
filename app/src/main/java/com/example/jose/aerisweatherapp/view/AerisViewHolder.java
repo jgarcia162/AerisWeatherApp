@@ -1,9 +1,9 @@
 package com.example.jose.aerisweatherapp.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jose.aerisweatherapp.R;
@@ -13,7 +13,7 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
     private TextView timeStampTV;
     private TextView minTempTV;
     private TextView maxTempTV;
-    private ImageView iconIV;
+    private View layout;
     private Context context;
 
 
@@ -22,14 +22,15 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         timeStampTV = (TextView) itemView.findViewById(R.id.time_stamp_tv);
         minTempTV = (TextView) itemView.findViewById(R.id.min_temp_tv);
         maxTempTV= (TextView) itemView.findViewById(R.id.max_temp_tv);
-        iconIV = (ImageView) itemView.findViewById(R.id.icon_iv);
+        layout = (View) itemView.findViewById(R.id.card_view_layout);
         context = itemView.getContext();
     }
 
     public void bind(AerisPeriod period){
+        Resources resources = context.getResources();
         timeStampTV.setText(period.getDayOfTheWeek());
-        minTempTV.setText(String.valueOf(period.getMinTempF()));
-        maxTempTV.setText(String.valueOf(period.getMaxTempF()));
-        iconIV.setImageDrawable(period.getIconDrawable(context));
+        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.getMaxTempF()));
+        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.getMinTempF()));
+        layout.setBackground(period.getIconDrawable(context));
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.jose.aerisweatherapp.backend.AerisService;
@@ -50,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         makeRetrofitCall(BASE_URL);
-//        if (savedInstanceState == null) {
-//
-//        }
     }
 
     public void makeRetrofitCall(String baseUrl){
@@ -82,5 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(RESPONSE_TAG,t.getMessage());
             }
         });
+    }
+
+    public void switchMeasurementSystem(View view) {
+        //TODO convert from f to c and update views
     }
 }

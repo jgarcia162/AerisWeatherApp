@@ -4,15 +4,24 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#4c539c"
     android:orientation="vertical"
     tools:context="com.example.jose.aerisweatherapp.MainActivity">
 
 
+    <Button
+        android:id="@+id/converter_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="switchMeasurementSystem"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/metric_button_text"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
 

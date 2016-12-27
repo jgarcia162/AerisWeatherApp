@@ -71,8 +71,8 @@ public class DetailsFragment extends Fragment {
         Resources resources = getResources();
         dayOfTheWeekTV.setText(period.getFullDayName());
         weatherTV.setText(period.getWeatherPrimary());
-        maxTempTV.setText(String.valueOf(period.getMaxTempF()));
-        minTempTV.setText(String.valueOf(period.getMinTempF()));
+        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.getMaxTempF()));
+        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.getMinTempF()));
         sunriseTV.setText(period.getSunriseTimeString());
         sunsetTV.setText(period.getSunsetTimeString());
         weatherDescriptionTV.setText(period.getWeather());
@@ -81,8 +81,9 @@ public class DetailsFragment extends Fragment {
         windDirectionTV.setText(String.format(resources.getString(R.string.wind_direction_text),period.getWindDir()));
         uviTV.setText(String.format(resources.getString(R.string.uvi_text),period.getUvi()));
         iconIV.setImageDrawable(period.getIconDrawable(getContext()));
-
     }
+
+
 
 
 }
