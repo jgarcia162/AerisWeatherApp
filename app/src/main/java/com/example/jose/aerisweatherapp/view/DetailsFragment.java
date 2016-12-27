@@ -101,9 +101,11 @@ public class DetailsFragment extends Fragment {
         windSpeedTV.setText(String.format(resources.getString(R.string.wind_speed_text),period.getWindSpeedKPH()));
     }
 
+    public void refreshViews(AerisPeriod period){
+        bindDataToViews(period);
+    }
     public void refreshViews(){
         bindDataToViews(data);
-
     }
 
 

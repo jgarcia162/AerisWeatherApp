@@ -2,6 +2,8 @@ package com.example.jose.aerisweatherapp.view;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
     private View layout;
     private Context context;
     private Resources resources;
+    private FragmentManager fragmentManager;
+    private AerisPeriod period;
 
 
 
@@ -25,20 +29,28 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         timeStampTV = (TextView) itemView.findViewById(R.id.time_stamp_tv);
         minTempTV = (TextView) itemView.findViewById(R.id.min_temp_tv);
         maxTempTV= (TextView) itemView.findViewById(R.id.max_temp_tv);
-        layout = (View) itemView.findViewById(R.id.card_view_layout);
+        layout = itemView.findViewById(R.id.card_view_layout);
         context = itemView.getContext();
         resources = context.getResources();
+        fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
     }
 
-    public void bind(AerisPeriod period){
+    public void bind(final AerisPeriod period){
+        this.period = period;
         timeStampTV.setText(period.getDayOfTheWeek());
         if(!MainActivity.isMetricPressed)
             setDecimalTemp(period);
-
         else
             setMetricTemp(period);
 
         layout.setBackground(period.getIconDrawable(context));
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DetailsFragment detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("details_fragment_tag");
+                detailsFragment.refreshViews(period);
+            }
+        });
     }
 
     private void setMetricTemp(AerisPeriod period){
