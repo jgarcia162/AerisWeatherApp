@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/details_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:background="#000000">
 
     <TextView
         android:id="@+id/day_of_the_week_tv"
@@ -25,16 +26,16 @@
         android:layout_marginLeft="50dp">
 
         <ImageView
-            android:id="@+id/weather_icon_iv"
+            android:id="@+id/details_icon_iv"
             android:layout_width="75dp"
             android:layout_height="75dp"
             tools:src="@drawable/sunny" />
 
         <TextView
-            android:id="@+id/weather_description_tv"
+            android:id="@+id/weather_details_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/weather_icon_iv"
+            android:layout_below="@id/details_icon_iv"
             android:layout_marginTop="10dp"
             android:textSize="25sp"
             android:textColor="@color/white"
@@ -43,8 +44,8 @@
             android:id="@+id/detail_max_temp_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/weather_icon_iv"
-            android:layout_toEndOf="@id/weather_icon_iv"
+            android:layout_toRightOf="@id/details_icon_iv"
+            android:layout_toEndOf="@id/details_icon_iv"
             android:layout_marginStart="80dp"
             android:layout_marginLeft="80dp"
             android:textColor="@color/white"
@@ -54,8 +55,8 @@
             android:id="@+id/detail_min_temp_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/weather_icon_iv"
-            android:layout_toEndOf="@id/weather_icon_iv"
+            android:layout_toRightOf="@id/details_icon_iv"
+            android:layout_toEndOf="@id/details_icon_iv"
             android:layout_below="@id/detail_max_temp_tv"
             android:layout_marginStart="80dp"
             android:layout_marginLeft="80dp"
@@ -84,7 +85,7 @@
                 android:layout_marginLeft="40dp"
                 android:textSize="17sp"
                 android:textColor="@color/white"
-                tools:text="Sunrise - 6:34"/>
+                tools:text="@string/sunrise_text"/>
             <TextView
                 android:id="@+id/sunset_tv"
                 android:layout_width="wrap_content"
@@ -94,11 +95,11 @@
                 android:layout_marginRight="40dp"
                 android:textSize="17sp"
                 android:textColor="@color/white"
-                tools:text="Sunset - 4:34"/>
+                tools:text="@string/sunset_text"/>
 
         </RelativeLayout>
         <TextView
-            android:id="@+id/weather_details_tv"
+            android:id="@+id/weather_description_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -106,7 +107,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            tools:text="Mostly cloudy with light rain"/>
+            tools:text="Partly Cloudy"/>
         <TextView
             android:id="@+id/humidity_tv"
             android:layout_width="wrap_content"
@@ -115,7 +116,7 @@
             android:layout_gravity="center"
             android:textSize="17sp"
             android:textColor="@color/white"
-            tools:text="Humidity - 85%"/>
+            tools:text="@string/humidity_text"/>
         <TextView
             android:id="@+id/wind_speed_tv"
             android:layout_width="wrap_content"
@@ -124,7 +125,7 @@
             android:layout_gravity="center"
             android:textSize="17sp"
             android:textColor="@color/white"
-            tools:text="Wind Speed- 12 MPH"/>
+            tools:text="@string/wind_speed_text"/>
         <TextView
             android:id="@+id/wind_direction_tv"
             android:layout_width="wrap_content"
@@ -133,7 +134,7 @@
             android:layout_gravity="center"
             android:textSize="17sp"
             android:textColor="@color/white"
-            tools:text="Wind Direction - SSW"/>
+            tools:text="@string/wind_direction_text"/>
         <TextView
             android:id="@+id/uvi_tv"
             android:layout_width="wrap_content"
@@ -142,6 +143,6 @@
             android:layout_gravity="center"
             android:textSize="17sp"
             android:textColor="@color/white"
-            tools:text="UV Index - 1"/>
+            tools:text="@string/uvi_text"/>
     </LinearLayout>
 </RelativeLayout>

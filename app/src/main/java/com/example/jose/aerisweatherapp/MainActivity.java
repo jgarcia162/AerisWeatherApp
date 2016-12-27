@@ -1,6 +1,8 @@
 package com.example.jose.aerisweatherapp;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import com.example.jose.aerisweatherapp.backend.AerisService;
 import com.example.jose.aerisweatherapp.controller.AerisAdapter;
 import com.example.jose.aerisweatherapp.model.AerisPeriod;
 import com.example.jose.aerisweatherapp.model.AerisResponse;
+import com.example.jose.aerisweatherapp.view.DetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         makeRetrofitCall(BASE_URL);
+//        if (savedInstanceState == null) {
+//
+//        }
     }
 
     public void makeRetrofitCall(String baseUrl){
@@ -59,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 listOfForecasts = response.body().getResponse().get(0).getPeriod();
                 adapter.setData(listOfForecasts);
                 adapter.notifyDataSetChanged();
+                FragmentManager fragmentManager = (FragmentManager)getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                Bundle bundle = new Bundle();
+                AerisPeriod period = listOfForecasts.get(0);
+                Log.d("MAX TEMP", period.getMaxTempF()+"");
+                bundle.putParcelable("data",period);
+                DetailsFragment fragment = new DetailsFragment();
+                fragment.setArguments(bundle);
+                transaction.add(R.id.details_fragment_container, fragment);
+                transaction.commit();
             }
 
             @Override
