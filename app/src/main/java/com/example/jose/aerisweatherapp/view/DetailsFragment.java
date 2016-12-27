@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jose.aerisweatherapp.MainActivity;
 import com.example.jose.aerisweatherapp.R;
 import com.example.jose.aerisweatherapp.model.AerisPeriod;
 
@@ -30,6 +31,7 @@ public class DetailsFragment extends Fragment {
     private View rootView;
     private Bundle bundles;
     private AerisPeriod data;
+    private Resources resources;
 
     public DetailsFragment(){
 
@@ -47,6 +49,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.details_fragment_layout,container,false);
+        resources = getResources();
         initializeViews(rootView);
         bindDataToViews(data);
         return rootView;
@@ -67,23 +70,41 @@ public class DetailsFragment extends Fragment {
         iconIV = (ImageView) view.findViewById(R.id.details_icon_iv);
     }
 
+
     public void bindDataToViews(AerisPeriod period){
-        Resources resources = getResources();
         dayOfTheWeekTV.setText(period.getFullDayName());
         weatherTV.setText(period.getWeatherPrimary());
-        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.getMaxTempF()));
-        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.getMinTempF()));
-        sunriseTV.setText(period.getSunriseTimeString());
-        sunsetTV.setText(period.getSunsetTimeString());
+        if(MainActivity.isMetricPressed)
+            setMetricSystem(period);
+        else
+            setDecimalSystem(period);
         weatherDescriptionTV.setText(period.getWeather());
         humidityTV.setText(String.format(resources.getString(R.string.humidity_text),period.getHumidity()));
-        windSpeedTV.setText(String.format(resources.getString(R.string.wind_speed_text),period.getWindSpeedMPH()));
         windDirectionTV.setText(String.format(resources.getString(R.string.wind_direction_text),period.getWindDir()));
         uviTV.setText(String.format(resources.getString(R.string.uvi_text),period.getUvi()));
         iconIV.setImageDrawable(period.getIconDrawable(getContext()));
     }
 
+    private void setDecimalSystem(AerisPeriod period) {
+        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.getMaxTempF()));
+        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.getMinTempF()));
+        sunriseTV.setText(period.getSunriseTimeString());
+        sunsetTV.setText(period.getSunsetTimeString());
+        windSpeedTV.setText(String.format(resources.getString(R.string.wind_speed_text),period.getWindSpeedMPH()));
+    }
 
+    private void setMetricSystem(AerisPeriod period){
+        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.getMaxTempC()));
+        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.getMinTempC()));
+        sunriseTV.setText(period.getSunriseMilitaryTimeString());
+        sunsetTV.setText(period.getSunsetMilitaryTimeString());
+        windSpeedTV.setText(String.format(resources.getString(R.string.wind_speed_text),period.getWindSpeedKPH()));
+    }
+
+    public void refreshViews(){
+        bindDataToViews(data);
+
+    }
 
 
 }

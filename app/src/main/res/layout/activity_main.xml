@@ -13,7 +13,6 @@
         android:id="@+id/converter_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="switchMeasurementSystem"
         android:textColor="@color/white"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/metric_button_text"/>

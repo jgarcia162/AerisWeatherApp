@@ -166,11 +166,23 @@ public class AerisPeriod implements Parcelable {
         DateFormat formatter = new SimpleDateFormat("hh:mm");
         return formatter.format(date);
 
-    }public String getSunsetTimeString(){
+    }
+    public String getSunriseMilitaryTimeString() {
+        Date date = new Date(getSunrise());
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        return formatter.format(date);
+    }
+    public String getSunsetTimeString(){
         Date date = new Date(getSunset());
         DateFormat formatter = new SimpleDateFormat("hh:mm");
         return formatter.format(date);
     }
+    public String getSunsetMilitaryTimeString() {
+        Date date = new Date(getSunset());
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        return formatter.format(date);
+    }
+
 
     @Override
     public int describeContents() {
@@ -195,4 +207,6 @@ public class AerisPeriod implements Parcelable {
         parcel.writeString(weather);
         parcel.writeString(weatherPrimary);
     }
+
+
 }

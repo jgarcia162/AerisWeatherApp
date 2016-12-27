@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.jose.aerisweatherapp.backend.AerisService;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private AerisAdapter adapter;
     private List<AerisPeriod> listOfForecasts;
     private ImageView icon;
+    public static boolean isMetricPressed = false;
+    private Button converterButton;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +50,22 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        fragmentManager = getSupportFragmentManager();
         listOfForecasts = new ArrayList<>();
         adapter = new AerisAdapter(listOfForecasts);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        converterButton = (Button) findViewById(R.id.converter_button);
         makeRetrofitCall(BASE_URL);
+        converterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                convertMeasurementSystem();
+            }
+        });
     }
 
-    public void makeRetrofitCall(String baseUrl){
+    public void makeRetrofitCall(String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         AerisService service = retrofit.create(AerisService.class);
         Call<AerisResponse> call = service.getResponse();
@@ -63,26 +75,35 @@ public class MainActivity extends AppCompatActivity {
                 listOfForecasts = response.body().getResponse().get(0).getPeriod();
                 adapter.setData(listOfForecasts);
                 adapter.notifyDataSetChanged();
-                FragmentManager fragmentManager = (FragmentManager)getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 AerisPeriod period = listOfForecasts.get(0);
-                Log.d("MAX TEMP", period.getMaxTempF()+"");
-                bundle.putParcelable("data",period);
+                bundle.putParcelable("data", period);
                 DetailsFragment fragment = new DetailsFragment();
                 fragment.setArguments(bundle);
-                transaction.add(R.id.details_fragment_container, fragment);
-                transaction.commit();
+                fragmentTransaction.add(R.id.details_fragment_container, fragment, "details_fragment_tag");
+                fragmentTransaction.commit();
             }
 
             @Override
             public void onFailure(Call<AerisResponse> call, Throwable t) {
-                Log.i(RESPONSE_TAG,t.getMessage());
+                Log.i(RESPONSE_TAG, t.getMessage());
             }
         });
     }
 
-    public void switchMeasurementSystem(View view) {
-        //TODO convert from f to c and update views
+    public void convertMeasurementSystem() {
+        DetailsFragment detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("details_fragment_tag");
+        adapter.notifyDataSetChanged();
+        isMetricPressed = !isMetricPressed;
+        if (isMetricPressed) {
+            converterButton.setText(R.string.converter_button_decimal_text);
+            converterButton.setSelected(true);
+            detailsFragment.refreshViews();
+        } else {
+            converterButton.setText(R.string.converter_button_metric_text);
+            converterButton.setSelected(false);
+            detailsFragment.refreshViews();
+        }
     }
 }
