@@ -2,7 +2,9 @@ package com.example.jose.aerisweatherapp.view;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,9 +22,7 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
     private Context context;
     private Resources resources;
     private FragmentManager fragmentManager;
-    private AerisPeriod period;
-
-
+    private AerisPeriod data;
 
     public AerisViewHolder(View itemView) {
         super(itemView);
@@ -35,8 +35,8 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
     }
 
-    public void bind(final AerisPeriod period){
-        this.period = period;
+    public void bind(AerisPeriod period){
+        this.data = period;
         timeStampTV.setText(period.getDayOfTheWeek());
         if(!MainActivity.isMetricPressed)
             setDecimalTemp(period);
@@ -47,8 +47,13 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetailsFragment detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("details_fragment_tag");
-                detailsFragment.refreshViews(period);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("data", data);
+                DetailsFragment fragment = new DetailsFragment();
+                fragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.details_fragment_container, fragment, "clicked_fragment");
+                fragmentTransaction.commit();
             }
         });
     }

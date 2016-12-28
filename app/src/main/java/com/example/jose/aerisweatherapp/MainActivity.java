@@ -19,6 +19,7 @@ import com.example.jose.aerisweatherapp.view.DetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isMetricPressed = false;
     private Button converterButton;
     private FragmentManager fragmentManager;
+    public static Stack<DetailsFragment> fragmentStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 convertMeasurementSystem();
             }
         });
+        fragmentStack = new Stack<>();
     }
 
     public void makeRetrofitCall(String baseUrl) {
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void convertMeasurementSystem() {
-        DetailsFragment detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("details_fragment_tag");
+        DetailsFragment detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("clicked_fragment");
         adapter.notifyDataSetChanged();
         isMetricPressed = !isMetricPressed;
         if (isMetricPressed) {
