@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putParcelable("data", period);
                 DetailsFragment fragment = new DetailsFragment();
                 fragment.setArguments(bundle);
-                fragmentTransaction.add(R.id.details_fragment_container, fragment, "details_fragment_tag");
+                fragmentTransaction.add(R.id.details_fragment_container, fragment, "details_fragment");
                 fragmentTransaction.commit();
             }
 
@@ -96,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void convertMeasurementSystem() {
-        DetailsFragment detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("clicked_fragment");
+        DetailsFragment detailsFragment;
+        if(fragmentManager.findFragmentByTag("clicked_fragment") == null)
+            detailsFragment = (DetailsFragment)fragmentManager.findFragmentByTag("details_fragment");
+        else
+            detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("clicked_fragment");
         adapter.notifyDataSetChanged();
         isMetricPressed = !isMetricPressed;
         if (isMetricPressed) {
