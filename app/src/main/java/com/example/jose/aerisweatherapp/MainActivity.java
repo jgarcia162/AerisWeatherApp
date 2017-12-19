@@ -1,6 +1,12 @@
 package com.example.jose.aerisweatherapp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +22,14 @@ import com.example.jose.aerisweatherapp.controller.AerisAdapter;
 import com.example.jose.aerisweatherapp.model.AerisPeriod;
 import com.example.jose.aerisweatherapp.model.AerisResponse;
 import com.example.jose.aerisweatherapp.view.DetailsFragment;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Stack;
 
 import retrofit2.Call;
@@ -41,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Button converterButton;
     private FragmentManager fragmentManager;
     public static Stack<DetailsFragment> fragmentStack;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +68,34 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         converterButton = (Button) findViewById(R.id.converter_button);
 
-        makeRetrofitCall(BASE_URL,"new york,ny");
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            makeRetrofitCall(BASE_URL, "new york,ny");
+            return;
+        }
+
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    try {
+                        Address address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0);
+                        String city = address.getLocality();
+                        String state = address.getAdminArea();
+                        if (city != null && state != null) {
+                            String formattedCity = city +","+state;
+                            makeRetrofitCall(BASE_URL,formattedCity);
+                        }else{
+                            makeRetrofitCall(BASE_URL,"new york,ny");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         converterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         AerisService service = retrofit.create(AerisService.class);
         Call<AerisResponse> call = service.getResponse(city, ACCESS_ID, AERIS_CLIENT_SECRET);
-        Log.d("REQUEST", "makeRetrofitCall: " + call.request());
+        Log.d("CALL", "makeRetrofitCall: " + call.request());
         call.enqueue(new Callback<AerisResponse>() {
             @Override
             public void onResponse(Call<AerisResponse> call, Response<AerisResponse> response) {
@@ -114,10 +153,6 @@ public class MainActivity extends AppCompatActivity {
             detailsFragment.refreshViews();
         }
     }
-
-
-
-
 
 
 }
