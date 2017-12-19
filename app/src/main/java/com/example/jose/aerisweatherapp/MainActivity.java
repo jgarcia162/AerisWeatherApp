@@ -28,13 +28,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    //TODO create detailed view fragment
-    //TODO add toggle for celsius
-
     private String ACCESS_ID = BuildConfig.AERIS_API_ACCESS_ID;
     private String AERIS_CLIENT_SECRET = BuildConfig.AERIS_API_SECRET_KEY;
     private String RESPONSE_TAG = "RESPONSE";
-    private String BASE_URL = "http://api.aerisapi.com/forecasts/";
+    private String BASE_URL = "http://api.aerisapi.com/";
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private AerisAdapter adapter;
@@ -58,20 +55,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         converterButton = (Button) findViewById(R.id.converter_button);
-        makeRetrofitCall(BASE_URL);
+
+        makeRetrofitCall(BASE_URL,"new york,ny");
+
         converterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 convertMeasurementSystem();
             }
         });
+
         fragmentStack = new Stack<>();
     }
 
-    public void makeRetrofitCall(String baseUrl) {
+    public void makeRetrofitCall(String baseUrl, String city) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         AerisService service = retrofit.create(AerisService.class);
-        Call<AerisResponse> call = service.getResponse();
+        Call<AerisResponse> call = service.getResponse(city, ACCESS_ID, AERIS_CLIENT_SECRET);
+        Log.d("REQUEST", "makeRetrofitCall: " + call.request());
         call.enqueue(new Callback<AerisResponse>() {
             @Override
             public void onResponse(Call<AerisResponse> call, Response<AerisResponse> response) {
@@ -90,15 +91,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AerisResponse> call, Throwable t) {
-                Log.i(RESPONSE_TAG, t.getMessage());
+                t.printStackTrace();
             }
         });
     }
 
     public void convertMeasurementSystem() {
         DetailsFragment detailsFragment;
-        if(fragmentManager.findFragmentByTag("clicked_fragment") == null)
-            detailsFragment = (DetailsFragment)fragmentManager.findFragmentByTag("details_fragment");
+        if (fragmentManager.findFragmentByTag("clicked_fragment") == null)
+            detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("details_fragment");
         else
             detailsFragment = (DetailsFragment) fragmentManager.findFragmentByTag("clicked_fragment");
         adapter.notifyDataSetChanged();
@@ -113,4 +114,10 @@ public class MainActivity extends AppCompatActivity {
             detailsFragment.refreshViews();
         }
     }
+
+
+
+
+
+
 }

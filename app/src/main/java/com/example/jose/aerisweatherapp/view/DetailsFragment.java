@@ -29,7 +29,6 @@ public class DetailsFragment extends Fragment {
     private TextView uviTV;
     private ImageView iconIV;
     private View rootView;
-    private Bundle bundles;
     private AerisPeriod data;
     private Resources resources;
 
@@ -41,7 +40,7 @@ public class DetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //get bundles here
-        bundles = getArguments();
+        Bundle bundles = getArguments();
         data = bundles.getParcelable("data");
     }
 

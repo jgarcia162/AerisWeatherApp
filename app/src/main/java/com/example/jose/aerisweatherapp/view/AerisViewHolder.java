@@ -46,7 +46,7 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         layout.setBackground(period.getIconDrawable(context));
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("data", data);
