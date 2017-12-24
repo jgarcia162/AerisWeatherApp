@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.jose.aerisweatherapp.backend.AerisService;
+import com.example.jose.aerisweatherapp.backend.AutoValueGson_AerisTypeAdapterFactory;
 import com.example.jose.aerisweatherapp.controller.AerisAdapter;
 import com.example.jose.aerisweatherapp.model.AerisPeriod;
 import com.example.jose.aerisweatherapp.model.AerisResponse;
@@ -25,6 +26,7 @@ import com.example.jose.aerisweatherapp.view.DetailsFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("INTEGER", "onCreate: " + Integer.valueOf('s'));
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -85,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
                         String city = address.getLocality();
                         String state = address.getAdminArea();
                         if (city != null && state != null) {
-                            String formattedCity = city +","+state;
-                            makeRetrofitCall(BASE_URL,formattedCity);
-                        }else{
-                            makeRetrofitCall(BASE_URL,"new york,ny");
+                            String formattedCity = city + "," + state;
+                            makeRetrofitCall(BASE_URL, formattedCity);
+                        } else {
+                            makeRetrofitCall(BASE_URL, "new york,ny");
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -107,8 +111,16 @@ public class MainActivity extends AppCompatActivity {
         fragmentStack = new Stack<>();
     }
 
+
     public void makeRetrofitCall(String baseUrl, String city) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
+
+        GsonConverterFactory gsonConverterFactory = GsonConverterFactory
+                .create(new GsonBuilder().registerTypeAdapterFactory(new AutoValueGson_AerisTypeAdapterFactory()).create());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(gsonConverterFactory).build();
+
         AerisService service = retrofit.create(AerisService.class);
         Call<AerisResponse> call = service.getResponse(city, ACCESS_ID, AERIS_CLIENT_SECRET);
         Log.d("CALL", "makeRetrofitCall: " + call.request());

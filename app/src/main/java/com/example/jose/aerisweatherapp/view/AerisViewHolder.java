@@ -26,9 +26,9 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
 
     public AerisViewHolder(View itemView) {
         super(itemView);
-        timeStampTV = (TextView) itemView.findViewById(R.id.time_stamp_tv);
-        minTempTV = (TextView) itemView.findViewById(R.id.min_temp_tv);
-        maxTempTV= (TextView) itemView.findViewById(R.id.max_temp_tv);
+        timeStampTV = itemView.findViewById(R.id.time_stamp_tv);
+        minTempTV =  itemView.findViewById(R.id.min_temp_tv);
+        maxTempTV= itemView.findViewById(R.id.max_temp_tv);
         layout = itemView.findViewById(R.id.card_view_layout);
         context = itemView.getContext();
         resources = context.getResources();
@@ -59,12 +59,12 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setMetricTemp(AerisPeriod period){
-        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.getMaxTempC()));
-        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.getMinTempC()));
+        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text),period.maxTempC()));
+        minTempTV.setText(String.format(resources.getString(R.string.details_low_text),period.minTempC()));
     }
 
     private void setDecimalTemp(AerisPeriod period){
-        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text), period.getMaxTempF()));
-        minTempTV.setText(String.format(resources.getString(R.string.details_low_text), period.getMinTempF()));
+        maxTempTV.setText(String.format(resources.getString(R.string.details_high_text), period.maxTempF()));
+        minTempTV.setText(String.format(resources.getString(R.string.details_low_text), period.minTempF()));
     }
 }

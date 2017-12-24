@@ -7,15 +7,12 @@ import com.google.gson.annotations.SerializedName;
  */
 public class AerisLocation {
     private float lat;
+
     @SerializedName("long")
     private float lon;
 
-    public float getLatitude() {
-        return lat;
+    public AerisLocation(float lat, float lon) {
+        this.lat = lat;
+        this.lon = lon;
     }
-
-    public float getLongitude() {
-        return lon;
-    }
-
 }
