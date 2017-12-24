@@ -18,8 +18,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.jose.aerisweatherapp.backend.AerisService;
-import com.example.jose.aerisweatherapp.backend.AutoValueGson_AerisTypeAdapterFactory;
 import com.example.jose.aerisweatherapp.controller.AerisAdapter;
+import com.example.jose.aerisweatherapp.controller.AutoValueGson_AerisTypeAdapterFactory;
 import com.example.jose.aerisweatherapp.model.AerisPeriod;
 import com.example.jose.aerisweatherapp.model.AerisResponse;
 import com.example.jose.aerisweatherapp.view.DetailsFragment;

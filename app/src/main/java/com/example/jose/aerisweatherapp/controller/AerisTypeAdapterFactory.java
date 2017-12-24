@@ -1,5 +1,6 @@
-package com.example.jose.aerisweatherapp.backend;
+package com.example.jose.aerisweatherapp.controller;
 
+import com.example.jose.aerisweatherapp.controller.AutoValueGson_AerisTypeAdapterFactory;
 import com.google.gson.TypeAdapterFactory;
 import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
