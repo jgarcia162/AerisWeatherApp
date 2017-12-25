@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new AerisAdapter(listOfForecasts);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.HORIZONTAL);
         recyclerView.addItemDecoration(decoration);
 
 

@@ -3,12 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/details_fragment_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/white">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +17,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 android:textSize="30sp"
                 tools:text="MONDAY" />
 
@@ -45,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/details_icon_iv"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="25sp"
                     tools:text="Sunny" />
 
@@ -57,7 +53,7 @@
                     android:layout_marginStart="80dp"
                     android:layout_toEndOf="@id/details_icon_iv"
                     android:layout_toRightOf="@id/details_icon_iv"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="25sp"
                     tools:text="High 43 F" />
 
@@ -71,7 +67,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_toEndOf="@id/details_icon_iv"
                     android:layout_toRightOf="@id/details_icon_iv"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="25sp"
                     tools:text="Low 27 F" />
             </RelativeLayout>
@@ -95,7 +91,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginLeft="40dp"
                         android:layout_marginStart="40dp"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
                         android:textSize="17sp"
                         tools:text="@string/sunrise_text" />
 
@@ -106,7 +102,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="40dp"
                         android:layout_marginRight="40dp"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
                         android:textSize="17sp"
                         tools:text="@string/sunset_text" />
 
@@ -118,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="Partly Cloudy" />
@@ -129,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     tools:text="@string/humidity_text" />
 
@@ -139,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     tools:text="@string/wind_speed_text" />
 
@@ -149,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     tools:text="@string/wind_direction_text" />
 
@@ -159,10 +155,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     tools:text="@string/uvi_text" />
             </LinearLayout>
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
 </RelativeLayout>
