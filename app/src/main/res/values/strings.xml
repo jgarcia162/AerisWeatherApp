@@ -11,6 +11,7 @@
     <string name="details_high_text">High %1$d</string>
     <string name="details_low_text">Low %1$d</string>
     <string name="metric_button_text">METRIC</string>
-    <string name="converter_button_metric_text">METRIC</string>
-    <string name="converter_button_decimal_text">DECIMAL</string>
+    <string name="converter_button_metric_text">C</string>
+    <string name="converter_button_decimal_text">F</string>
+    <string name="weather_icon">Weather icon</string>
 </resources>

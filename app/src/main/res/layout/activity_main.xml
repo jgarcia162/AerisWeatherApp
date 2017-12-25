@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
+    android:background="@color/main_activity_background"
+    android:clipToPadding="false"
+
     tools:context="com.example.jose.aerisweatherapp.MainActivity">
 
 
-    <Button
+    <RelativeLayout
+        android:id="@+id/recyclerview_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <FrameLayout
+        android:id="@+id/details_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerview"/>
+    </RelativeLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/converter_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_gravity="bottom|end|right"
+        android:layout_margin="26dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="@string/metric_button_text"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:id="@+id/details_fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </FrameLayout>
-    </ScrollView>
-</LinearLayout>
+        android:src="@drawable/degrees" />
+</android.support.design.widget.CoordinatorLayout>

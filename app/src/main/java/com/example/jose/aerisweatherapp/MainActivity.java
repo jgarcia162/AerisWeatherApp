@@ -6,15 +6,16 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.jose.aerisweatherapp.backend.AerisService;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private List<AerisPeriod> listOfForecasts;
     private ImageView icon;
     public static boolean isMetricPressed = false;
-    private Button converterButton;
+    private FloatingActionButton converterButton;
     private FragmentManager fragmentManager;
     public static Stack<DetailsFragment> fragmentStack;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("INTEGER", "onCreate: " + Integer.valueOf('s'));
 
+        converterButton = (FloatingActionButton) findViewById(R.id.converter_button);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -70,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         adapter = new AerisAdapter(listOfForecasts);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        converterButton = (Button) findViewById(R.id.converter_button);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.HORIZONTAL);
+        recyclerView.addItemDecoration(decoration);
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -156,11 +160,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         isMetricPressed = !isMetricPressed;
         if (isMetricPressed) {
-            converterButton.setText(R.string.converter_button_decimal_text);
             converterButton.setSelected(true);
             detailsFragment.refreshViews();
         } else {
-            converterButton.setText(R.string.converter_button_metric_text);
             converterButton.setSelected(false);
             detailsFragment.refreshViews();
         }
