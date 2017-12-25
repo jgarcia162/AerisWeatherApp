@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("INTEGER", "onCreate: " + Integer.valueOf('s'));
 
+        converterButton = (FloatingActionButton) findViewById(R.id.converter_button);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -70,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         adapter = new AerisAdapter(listOfForecasts);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        converterButton = (FloatingActionButton) findViewById(R.id.converter_button);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL);
+        recyclerView.addItemDecoration(decoration);
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -156,11 +160,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         isMetricPressed = !isMetricPressed;
         if (isMetricPressed) {
-            converterButton.setImageResource(R.drawable.celsius);
             converterButton.setSelected(true);
             detailsFragment.refreshViews();
         } else {
-            converterButton.setImageResource(R.drawable.fahrenheit);
             converterButton.setSelected(false);
             detailsFragment.refreshViews();
         }

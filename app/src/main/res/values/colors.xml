@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9f350b</color>
-    <color name="colorPrimaryDark">#02041a</color>
+    <color name="colorPrimary">#FF5714</color>
+    <color name="colorPrimaryDark">#1C5CFF</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
     <color name="see_through_navy_blue">#a402041a</color>
     <color name="navy_blue">#02041a</color>
     <color name="main_activity_background">#1C5CFF</color>
-    <color name="details_fragment_background">#3f894c</color>
+    <color name="details_fragment_background">#6EEB83</color>
 </resources>

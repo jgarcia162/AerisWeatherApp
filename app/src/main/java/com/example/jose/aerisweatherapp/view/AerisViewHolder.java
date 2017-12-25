@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jose.aerisweatherapp.MainActivity;
@@ -18,6 +19,7 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
     private TextView timeStampTV;
     private TextView minTempTV;
     private TextView maxTempTV;
+    private ImageView weatherIV;
     private View layout;
     private Context context;
     private Resources resources;
@@ -29,6 +31,7 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         timeStampTV = itemView.findViewById(R.id.time_stamp_tv);
         minTempTV =  itemView.findViewById(R.id.min_temp_tv);
         maxTempTV= itemView.findViewById(R.id.max_temp_tv);
+        weatherIV = itemView.findViewById(R.id.weather_imageview);
         layout = itemView.findViewById(R.id.card_view_layout);
         context = itemView.getContext();
         resources = context.getResources();
@@ -43,7 +46,7 @@ public class AerisViewHolder extends RecyclerView.ViewHolder {
         else
             setMetricTemp(period);
 
-        layout.setBackground(period.getIconDrawable(context));
+        weatherIV.setImageDrawable(period.getIconDrawable(context));
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
